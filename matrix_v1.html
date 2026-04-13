@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sovereign Risk Disaggregation Matrix — v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1F2D5C;
+    --navy-90: #2C3A6A;
+    --navy-60: #6B7595;
+    --navy-30: #B8BDD0;
+    --navy-10: #E8EAF1;
+    --grey-bg: #F4F4F4;
+    --grey-border: #E5E5E5;
+    --grey-text: #6B6B6B;
+    --white: #FFFFFF;
+    --serif: 'Libre Caslon Text', Georgia, serif;
+    --sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--navy);
+    background: var(--white);
+    padding: 48px 56px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Header */
+  header { margin-bottom: 36px; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .eyebrow .tag {
+    background: var(--grey-bg);
+    padding: 4px 10px;
+    margin-right: 6px;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--navy);
+    max-width: 800px;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--grey-text);
+    max-width: 720px;
+  }
+
+  /* Toggle bar */
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 32px 0 16px;
+    border-bottom: 1px solid var(--grey-border);
+    padding-bottom: 16px;
+  }
+  .channel-label {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--navy);
+  }
+  .channel-label .meta {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    margin-left: 10px;
+  }
+  .toggle {
+    display: inline-flex;
+    border: 1px solid var(--navy);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .toggle button {
+    background: transparent;
+    border: none;
+    color: var(--navy);
+    padding: 8px 18px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: all 160ms ease-out;
+  }
+  .toggle button.active {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .toggle button:not(.active):hover { background: var(--navy-10); }
+
+  /* Matrix */
+  .matrix {
+    display: grid;
+    grid-template-columns: 240px repeat(5, 1fr);
+    border-top: 1px solid var(--grey-border);
+  }
+  .col-header {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--navy);
+    border-right: 1px solid var(--grey-border);
+    background: var(--white);
+  }
+  .col-header.disabled { color: var(--navy-30); }
+  .col-header.first { border-right: 1px solid var(--grey-border); background: var(--white); }
+  .row-header {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--navy);
+    padding: 18px 14px;
+    border-right: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--grey-border);
+    display: flex;
+    align-items: center;
+    background: var(--white);
+  }
+
+  /* Cells */
+  .cell {
+    position: relative;
+    min-height: 88px;
+    padding: 14px 12px;
+    border-right: 1px solid var(--grey-border);
+    border-bottom: 1px solid var(--grey-border);
+    cursor: pointer;
+    transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cell.disabled {
+    background: repeating-linear-gradient(
+      45deg,
+      #FAFAFA,
+      #FAFAFA 6px,
+      #F4F4F4 6px,
+      #F4F4F4 12px
+    );
+    cursor: default;
+  }
+  .cell:not(.disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(31, 45, 92, 0.12);
+    z-index: 2;
+  }
+
+  /* Cell exposure styles */
+  .cell.high { background: var(--navy); color: var(--white); }
+  .cell.medium { background: var(--navy-60); color: var(--white); }
+  .cell.low { background: var(--navy-30); color: var(--navy); }
+  .cell.minimal { background: var(--white); color: var(--navy); }
+  .cell.minimal { border-right: 1px solid var(--grey-border); }
+
+  .cell-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .exposure-label {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .evidence-dots {
+    display: inline-flex;
+    gap: 3px;
+    align-items: center;
+  }
+  .evidence-dots .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+  }
+  .evidence-dots .dot.filled { background: currentColor; }
+
+  .direction {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 6px;
+    line-height: 1;
+  }
+
+  .cell-disabled-text {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy-30);
+    align-self: center;
+    margin: auto;
+  }
+
+  /* Detail panel */
+  .detail-row {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 220ms ease-out;
+    border-bottom: 1px solid var(--grey-border);
+  }
+  .detail-row.open { max-height: 360px; }
+  .detail-inner {
+    background: var(--grey-bg);
+    padding: 24px 28px;
+    border-left: 3px solid var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+  }
+  .detail-eyebrow {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .detail-eyebrow .sep {
+    color: var(--navy-30);
+    margin: 0 8px;
+  }
+  .detail-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .detail-prose {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 1.55;
+  }
+  .detail-meta {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--grey-text);
+    border-left: 1px solid var(--grey-border);
+    padding-left: 24px;
+  }
+  .detail-meta dt {
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10.5px;
+    margin-top: 14px;
+    margin-bottom: 4px;
+  }
+  .detail-meta dt:first-child { margin-top: 0; }
+  .detail-meta dd { font-size: 12.5px; color: #2A2A2A; }
+  .detail-meta dd.cite { font-style: italic; color: var(--grey-text); font-size: 11.5px; line-height: 1.4; }
+
+  /* Legend */
+  .legend {
+    margin-top: 32px;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--grey-border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    font-size: 12px;
+    color: var(--grey-text);
+  }
+  .legend h4 {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .swatch {
+    width: 20px; height: 12px;
+    border: 1px solid var(--grey-border);
+  }
+  .swatch.high { background: var(--navy); }
+  .swatch.medium { background: var(--navy-60); }
+  .swatch.low { background: var(--navy-30); }
+  .swatch.minimal { background: var(--white); }
+
+  .legend-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-right: 6px;
+  }
+  .legend-dots .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--navy);
+  }
+  .legend-dots .dot.filled { background: var(--navy); }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--grey-border);
+    font-size: 11px;
+    color: var(--grey-text);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">
+    <span class="tag">Sustainable Finance</span>
+    <span class="tag">Working Draft</span>
+  </div>
+  <h1>Sovereign credit risk, disaggregated by instrument and channel</h1>
+  <p class="subtitle">An interactive map of how five risk channels transmit into six sovereign debt instruments, in local- and foreign-currency variants. Hover any cell for the supporting evidence and citation. v1 prototype — currency, transfer &amp; convertibility channel only.</p>
+</header>
+
+<div class="controls">
+  <div class="channel-label">
+    Currency, transfer, convertibility &amp; depreciation risk
+    <span class="meta">Channel 1 of 5</span>
+  </div>
+  <div class="toggle" role="tablist" aria-label="Currency denomination">
+    <button id="btn-lc" class="active" role="tab" aria-selected="true">Local currency</button>
+    <button id="btn-fc" role="tab" aria-selected="false">Foreign currency</button>
+  </div>
+</div>
+
+<div class="matrix" id="matrix">
+  <div class="col-header first">Instrument</div>
+  <div class="col-header">T&amp;C</div>
+  <div class="col-header disabled">Liquidity</div>
+  <div class="col-header disabled">Solvency</div>
+  <div class="col-header disabled">Climate</div>
+  <div class="col-header disabled">Political / Institutional</div>
+</div>
+
+<div class="legend">
+  <div>
+    <h4>Exposure</h4>
+    <div class="legend-row"><span class="swatch high"></span> High — primary determinant of credit stress</div>
+    <div class="legend-row"><span class="swatch medium"></span> Medium — significant, not singularly determinant</div>
+    <div class="legend-row"><span class="swatch low"></span> Low — marginal influence</div>
+    <div class="legend-row"><span class="swatch minimal"></span> Minimal — neutralized by structural protection</div>
+  </div>
+  <div>
+    <h4>Evidence tier</h4>
+    <div class="legend-row"><span class="legend-dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot filled"></span></span> Strong — ≥3 corpus documents</div>
+    <div class="legend-row"><span class="legend-dots"><span class="dot filled"></span><span class="dot filled"></span><span class="dot"></span></span> Partial — 1–2 documents or indirect support</div>
+    <div class="legend-row"><span class="legend-dots"><span class="dot filled"></span><span class="dot"></span><span class="dot"></span></span> Theoretical — no direct documentary evidence</div>
+  </div>
+  <div>
+    <h4>Direction relative to baseline</h4>
+    <div class="legend-row"><span style="font-family:var(--serif); font-size:18px; width:20px; text-align:center;">↑</span> Amplifies risk</div>
+    <div class="legend-row"><span style="font-family:var(--serif); font-size:18px; width:20px; text-align:center;">↓</span> Reduces risk</div>
+    <div class="legend-row"><span style="font-family:var(--serif); font-size:18px; width:20px; text-align:center;">↕</span> Depends on instrument structure</div>
+  </div>
+</div>
+
+<footer>
+  Source: Working draft, "Sources for matrix" Google document. Exposure-level assessments derived from the channel narrative against the methodology rubric (High / Medium / Low / Minimal). Citations as numbered in the source document.
+</footer>
+
+<script>
+// ============================================================
+// DATA — cells indexed by [instrument][currency]
+// Sourced from the T&C subchapter of the "Sources for matrix" doc.
+// Exposure levels assessed against the methodology rubric.
+// ============================================================
+
+const instruments = [
+  { id: 'short_term',        name: 'Short-term market instruments' },
+  { id: 'long_concessional', name: 'Long-dated concessional loans' },
+  { id: 'mdb_guaranteed',    name: 'MDB-guaranteed instruments' },
+  { id: 'project_finance',   name: 'Revenue-backed project finance' },
+  { id: 'unsecured',         name: 'Unsecured sovereign issuance' },
+  { id: 'budget_support',    name: 'General budget support' }
+];
+
+const tncData = {
+  short_term: {
+    lc: {
+      exposure: 'minimal', direction: '↓', evidence: 'strong',
+      prose: 'No foreign-exchange conversion required. Sovereign monetary control eliminates convertibility and transfer risk; the government retains legal and operational authority over the obligation currency.',
+      cite: 'Sources for matrix, T&C subchapter — LC framing.'
+    },
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Full convertibility and transfer exposure, exacerbated by frequent refinancings that require repeated reserve access. Borrowing in foreign currency over short horizons exposes sovereigns to capital-flow reversals; the short-FC combination was explicitly identified as the vulnerability that local-currency bond market development was designed to structurally replace.',
+      cite: 'Mishkin (2007); World Bank, International Debt Report 2025, p. 17; Sources for matrix [^59].'
+    }
+  },
+  long_concessional: {
+    lc: {
+      exposure: 'minimal', direction: '↓', evidence: 'partial',
+      prose: 'Local-currency concessional lending eliminates currency exposure by aligning loan currency with borrower revenue streams, removing the cost-amplifying effects of devaluation that make foreign-currency obligations most burdensome during currency stress.',
+      cite: 'Sources for matrix [^25].'
+    },
+    fc: {
+      exposure: 'medium', direction: '↕', evidence: 'strong',
+      prose: 'Currency risk is institutional rather than market-driven: IFI prudential rules transfer FX exposure entirely to the borrowing sovereign. A 1% adverse exchange-rate shock under current IDA practice raises debt-to-GDP by 0.39 standard deviations; an LC-indexation program would have reduced IDA reflows by approximately $1bn over 1985–2005. Long maturities and preferred creditor status reduce the frequency of FX-sensitive refinancing without removing the underlying transfer.',
+      cite: 'Sources for matrix [^22], [^23], [^24]; Sachs et al. (2025), p. 12.'
+    }
+  },
+  mdb_guaranteed: {
+    lc: {
+      exposure: 'minimal', direction: '↓', evidence: 'strong',
+      prose: 'LC denomination eliminates convertibility, transfer and devaluation risks at the instrument level. MDB Treasury desks can provide currency-management support where needed.',
+      cite: 'Sources for matrix, T&C subchapter — LC framing.'
+    },
+    fc: {
+      exposure: 'medium', direction: '↓', evidence: 'strong',
+      prose: 'Mitigation is partial and configurable. MIGA C&T coverage is generally not available for sovereign debt issuance or tradable bonds; the Non-Honoring of Sovereign Financial Obligations product covers non-payment outcomes arising from C&T restrictions but does not insure C&T per se, and MIGA activates only after a blocked transfer occurs. IDA\'s Local Currency Facility addresses C&T via swap-based hedging. Protection depth depends on facility structure and whether terms meet rating-agency thresholds for credit enhancement.',
+      cite: 'Sources for matrix [^20], [^21]; Sachs et al. (2025), p. 12.'
+    }
+  },
+  project_finance: {
+    lc: {
+      exposure: 'minimal', direction: '↓', evidence: 'partial',
+      prose: 'LC variants eliminate the channel entirely: no currency mismatch between revenues and obligations.',
+      cite: 'Zelezetskii (2025), p. 18; Hatton & Sachs (2025), p. 7.'
+    },
+    fc: {
+      exposure: 'low', direction: '↕', evidence: 'partial',
+      prose: 'Variable by revenue currency. FC revenues matching obligations eliminate project-level convertibility risk, with ring-fencing and escrow as the strongest available structural mitigants. MIGA coverage for inconvertibility and transfer restrictions can mitigate capital-control episodes but does not fully eliminate exposure, since coverage activates only after a blocked transfer occurs and is conditional on policy criteria.',
+      cite: 'Sources for matrix [^51], [^52]; Zelezetskii (2025), p. 18; Hatton & Sachs (2025), p. 7.'
+    }
+  },
+  unsecured: {
+    lc: {
+      exposure: 'low', direction: '↕', evidence: 'strong',
+      prose: 'LC denomination eliminates risk for the issuer but relocates rather than neutralizes the channel. Foreign holders of LC sovereign bonds face convertibility and regulatory-change risk not present in FC debt — the sovereign retains the ability to suspend convertibility or impose capital controls without breaching bond covenants. Currency risk accounts for approximately 75% of the LC yield premium EME sovereigns pay above the risk-free rate, and depreciation amplifies foreign investor selloffs of LC bonds.',
+      cite: 'Sources for matrix [^56], [^57].'
+    },
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Ceiling of exposure: no escrow, no ring-fence, no concessional offset, full dependence on sovereign fiscal capacity and reserve adequacy to service obligations whose cost rises precisely as those buffers erode. The introduction of outflow controls is associated with sovereign rating downgrades twice as severe as for non-control countries in the first crisis year.',
+      cite: 'Sources for matrix [^58], [^60], [^61].'
+    }
+  },
+  budget_support: {
+    lc: {
+      exposure: 'minimal', direction: '↓', evidence: 'strong',
+      prose: 'No FX conversion or transfer risk; convertibility exposure eliminated entirely. Monetary-policy flexibility remains available to support servicing.',
+      cite: 'Sources for matrix, T&C subchapter — LC framing.'
+    },
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Ceiling of exposure alongside unsecured FC issuance: full reliance on reserve adequacy with no structural buffer, devaluation increases the real debt burden, and no monetary-policy flexibility is available to absorb the shock.',
+      cite: 'Sources for matrix [^60], [^61].'
+    }
+  }
+};
+
+const channelOrder = ['tnc', 'liquidity', 'solvency', 'climate', 'political'];
+const populated = new Set(['tnc']);
+
+// ============================================================
+// RENDER
+// ============================================================
+
+const matrix = document.getElementById('matrix');
+let currency = 'lc';
+let openCellKey = null;
+
+function evidenceDots(tier) {
+  const counts = { strong: 3, partial: 2, theoretical: 1 };
+  const filled = counts[tier] || 0;
+  let html = '<span class="evidence-dots" title="Evidence: ' + tier + '">';
+  for (let i = 0; i < 3; i++) {
+    html += '<span class="dot' + (i < filled ? ' filled' : '') + '"></span>';
+  }
+  return html + '</span>';
+}
+
+function exposureLabel(level) {
+  return level.charAt(0).toUpperCase() + level.slice(1);
+}
+
+function renderRow(instr, rowIdx) {
+  // Row header
+  const rh = document.createElement('div');
+  rh.className = 'row-header';
+  rh.textContent = instr.name;
+  matrix.appendChild(rh);
+
+  // Cells
+  channelOrder.forEach(ch => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    if (!populated.has(ch)) {
+      cell.classList.add('disabled');
+      cell.innerHTML = '<span class="cell-disabled-text">—</span>';
+      matrix.appendChild(cell);
+      return;
+    }
+    const data = (ch === 'tnc' ? tncData[instr.id] : null);
+    if (!data) {
+      cell.classList.add('disabled');
+      matrix.appendChild(cell);
+      return;
+    }
+    const d = data[currency];
+    cell.classList.add(d.exposure);
+    cell.innerHTML = `
+      <div class="cell-top">
+        <span class="exposure-label">${exposureLabel(d.exposure)}</span>
+        ${evidenceDots(d.evidence)}
+      </div>
+      <span class="direction">${d.direction}</span>
+    `;
+    cell.dataset.instrument = instr.id;
+    cell.dataset.channel = ch;
+    cell.addEventListener('click', () => toggleDetail(rowIdx, instr, ch, d));
+    matrix.appendChild(cell);
+  });
+
+  // Detail row (initially closed)
+  const detail = document.createElement('div');
+  detail.className = 'detail-row';
+  detail.id = 'detail-' + rowIdx;
+  matrix.appendChild(detail);
+}
+
+function toggleDetail(rowIdx, instr, ch, d) {
+  const key = `${rowIdx}-${ch}`;
+  // Close all
+  document.querySelectorAll('.detail-row').forEach(r => {
+    r.classList.remove('open');
+    r.innerHTML = '';
+  });
+  if (openCellKey === key) {
+    openCellKey = null;
+    return;
+  }
+  openCellKey = key;
+  const target = document.getElementById('detail-' + rowIdx);
+  const channelName = {
+    tnc: 'Currency, transfer, convertibility & depreciation',
+    liquidity: 'Liquidity', solvency: 'Solvency',
+    climate: 'Climate', political: 'Political / Institutional'
+  }[ch];
+  const currencyName = currency === 'lc' ? 'Local currency' : 'Foreign currency';
+  const evMap = { strong: 'Strong', partial: 'Partial', theoretical: 'Theoretical' };
+  const dirMap = { '↑': 'Amplifies risk', '↓': 'Reduces risk', '↕': 'Depends on structure' };
+  const expMap = { high: 'High', medium: 'Medium', low: 'Low', minimal: 'Minimal' };
+  target.innerHTML = `
+    <div class="detail-inner">
+      <div>
+        <div class="detail-eyebrow">${channelName}<span class="sep">/</span>${currencyName}</div>
+        <div class="detail-title">${instr.name}</div>
+        <p class="detail-prose">${d.prose}</p>
+      </div>
+      <dl class="detail-meta">
+        <dt>Exposure</dt><dd>${expMap[d.exposure]}</dd>
+        <dt>Direction</dt><dd>${dirMap[d.direction]}</dd>
+        <dt>Evidence</dt><dd>${evMap[d.evidence]}</dd>
+        <dt>Source</dt><dd class="cite">${d.cite}</dd>
+      </dl>
+    </div>
+  `;
+  target.classList.add('open');
+}
+
+function renderMatrix() {
+  // Clear any rendered content beyond the col-header row (first 6 children)
+  while (matrix.children.length > 6) matrix.removeChild(matrix.lastChild);
+  document.querySelectorAll('.detail-row').forEach(r => r.remove());
+  openCellKey = null;
+  instruments.forEach((instr, i) => renderRow(instr, i));
+}
+
+// Toggle handlers
+document.getElementById('btn-lc').addEventListener('click', () => {
+  if (currency === 'lc') return;
+  currency = 'lc';
+  document.getElementById('btn-lc').classList.add('active');
+  document.getElementById('btn-fc').classList.remove('active');
+  renderMatrix();
+});
+document.getElementById('btn-fc').addEventListener('click', () => {
+  if (currency === 'fc') return;
+  currency = 'fc';
+  document.getElementById('btn-fc').classList.add('active');
+  document.getElementById('btn-lc').classList.remove('active');
+  renderMatrix();
+});
+
+renderMatrix();
+</script>
+</body>
+</html>
