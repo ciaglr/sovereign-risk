@@ -1,5 +1,6 @@
 <!--Carlos Aguilar, version 2, updated tuesday april 28 2026 (20260413), contact: cia2117@columbia.edu, carlosiaglr@gmail.com -->
 <!--Sovereign risk dissagregation -  Columbia Center on Sustainable Investment -->
+<!-- Version 3, Updated friday may 1 2026 (20260501): foreign-currency side  -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -491,7 +492,7 @@ const tncData = {
 };
 
 // ============================================================
-// LIQUIDITY — local-currency side populated; foreign-currency placeholders
+// LIQUIDITY — both currency sides populated
 // ============================================================
 const liquidityData = {
   short_term: {
@@ -500,7 +501,11 @@ const liquidityData = {
       prose: 'Liquidity risk is amplified regardless of currency: short maturities concentrate rollover pressure, and domestic debt — typically shorter-maturity than external — is more susceptible to rollover stress. The central-bank backstop on local-currency obligations operates only in reserve-currency contexts; in emerging markets it is largely unavailable, leaving the rollover channel as the binding constraint.',
       cite: '[^69], [^70], [^71].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency short-term obligations face liquidity risk amplified by both short maturity and the absence of a central-bank backstop, which is available only on local-currency obligations and only in reserve-currency contexts. Each rollover requires reserve access and exposes sovereigns to capital-flow reversals; the short-term foreign-currency combination was identified as the vulnerability that local-currency bond market development was designed to structurally replace.',
+      cite: '[^69], [^70], [^71].'
+    }
   },
   long_concessional: {
     lc: {
@@ -508,7 +513,11 @@ const liquidityData = {
       prose: 'Extended maturities, grace periods, and preferred-creditor status reduce rollover frequency and support a stable investor base, with traditionally near-zero default rates buffering the instrument across stress episodes.',
       cite: '[^76].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'minimal', direction: '↓', evidence: 'partial',
+      prose: 'Extended maturities, grace periods, and preferred-creditor status reduce rollover frequency and support a stable investor base in foreign-currency variants as in local-currency. Concessional terms reduce the frequency and magnitude of refinancing windows, attenuating the absence of a central-bank backstop on foreign-currency obligations.',
+      cite: '[^76].'
+    }
   },
   mdb_guaranteed: {
     lc: {
@@ -516,7 +525,11 @@ const liquidityData = {
       prose: 'GEMs Consortium reports a 0.77% average annual default rate on MDB lending across 167 countries (1984–2024), substantially below non-MDB sovereign comparators. Concessional terms buffer rate volatility — average 2024 official rates of 3.8% versus 5.89% for private creditors. Debt-for-development swaps reduce near-term refinancing needs by retiring foreign-currency obligations against local-currency development commitments.',
       cite: '[^72], [^73], [^74], [^75].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'minimal', direction: '↓', evidence: 'strong',
+      prose: 'Foreign-currency variants benefit from a 0.77% average annual default rate on MDB lending across 167 countries over 1984–2024, with concessional terms buffering rate volatility — average 2024 official rates of 3.8% versus 5.89% for private creditors. Partial guarantees provide credit enhancement that supports rollover capacity, and preferred-creditor status remains effective in foreign currency conditional on the guarantee structure meeting credit-enhancement recognition thresholds.',
+      cite: '[^72], [^73], [^74].'
+    }
   },
   project_finance: {
     lc: {
@@ -524,7 +537,11 @@ const liquidityData = {
       prose: 'Ring-fenced revenues and escrow mechanisms protect cash flows from sovereign refinancing pressures, and debt service reserve accounts provide dedicated liquidity independent of sovereign market access. Local-currency variants avoid the convertibility and depreciation overlay that raises liquidity exposure when foreign-currency debt is serviced from local-currency revenues.',
       cite: '[^77], [^78], [^80], [^81].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↕', evidence: 'strong',
+      prose: 'Foreign-currency variants retain ring-fenced revenues and escrow architecture, with debt service reserve accounts providing dedicated liquidity independent of sovereign market access. Where revenues are realized in local currency against foreign-currency obligations, the convertibility and depreciation overlay raises liquidity exposure; where revenues are denominated in the obligation currency, the ring-fence holds at full strength.',
+      cite: '[^77], [^78], [^80], [^81].'
+    }
   },
   unsecured: {
     lc: {
@@ -532,7 +549,11 @@ const liquidityData = {
       prose: 'Domestic market access lessens rollover pressure when markets are deep, with central-bank support available against self-fulfilling rollover crises. Long maturities and refinancing flexibility reinforce the structural advantage over the foreign-currency variant; the benefit is conditional on market depth.',
       cite: '[^82].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency unsecured issuance lacks a central-bank backstop and depends on foreign investor confidence; the absence of a lender of last resort exposes sovereigns to self-fulfilling rollover crises, with capital-flow reversals depleting reserves precisely as refinancing pressure peaks.',
+      cite: '[^83].'
+    }
   },
   budget_support: {
     lc: {
@@ -540,12 +561,16 @@ const liquidityData = {
       prose: 'Repayment depends entirely on fiscal capacity, with no structural insulation from rollover pressure. When concessional financing falls short of investment needs, the gap is covered through domestic borrowing — which can crowd out private capital in shallow markets — or through external commercial debt at less favourable terms. Sovereigns under liquidity pressure first sacrifice productive spending, converting funding shortfalls into structural solvency deterioration.',
       cite: '[^84], [^85], [^86].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency budget support combines unring-fenced fiscal exposure with the absence of a central-bank backstop, leaving repayment dependent on reserve adequacy and on access to external commercial debt at less favourable terms when concessional financing falls short of investment needs. Sovereigns under liquidity pressure first sacrifice productive spending, converting funding shortfalls into structural solvency deterioration.',
+      cite: '[^84], [^85], [^86].'
+    }
   }
 };
 
 // ============================================================
-// SOLVENCY — local-currency side populated; foreign-currency placeholders
+// SOLVENCY — both currency sides populated
 // ============================================================
 const solvencyData = {
   short_term: {
@@ -554,7 +579,11 @@ const solvencyData = {
       prose: 'Frequent refinancing resets debt service at prevailing market rates, transmitting rate volatility into solvency trajectories. Local-currency obligations permit inflation to erode the real debt burden and make monetary-policy tools available for debt management; the net direction depends on the rate-versus-inflation differential. Short-term instruments consistently take larger restructuring haircuts than long-term equivalents.',
       cite: '[^97], [^98], [^104], [^105], [^106].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Frequent refinancing resets debt service at prevailing market rates, transmitting rate volatility into solvency trajectories. Foreign-currency denomination forecloses the inflation channel and removes monetary-policy tools available under local-currency variants; obligations remain nominally fixed and currency depreciation directly worsens the debt-to-GDP ratio. Short-term instruments consistently take larger restructuring haircuts than long-term equivalents.',
+      cite: '[^97], [^98], [^104], [^105], [^106].'
+    }
   },
   long_concessional: {
     lc: {
@@ -562,7 +591,11 @@ const solvencyData = {
       prose: 'Below-market rates, grant elements, and extended maturities lower debt service costs and align repayment with development timelines. The local-currency variant retains the inflation channel and monetary-policy tools that allow real debt-burden erosion without nominal adjustment.',
       cite: '[^122], [^123], [^125].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↓', evidence: 'strong',
+      prose: 'Foreign-currency variants forgo the inflation channel and monetary-policy tools available under local-currency lending but benefit from below-market rates, grant elements, and extended maturities that partially offset the exchange-rate exposure inherent in foreign-currency obligations. Concessional pricing keeps debt accumulation contained even when depreciation pressure raises the local-currency cost of service.',
+      cite: '[^122], [^123], [^125].'
+    }
   },
   mdb_guaranteed: {
     lc: {
@@ -570,7 +603,11 @@ const solvencyData = {
       prose: 'Where guarantees are strong and callable, markets apply a look-through to the guarantor\'s AAA/AA credit quality for the covered portion, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. Recognition is uneven: S&P\'s current methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes. The guarantee structure is the dominant determinant in both currency variants.',
       cite: '[^107], [^108], [^110], [^121].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↓', evidence: 'strong',
+      prose: 'Markets apply look-through to the guarantor\'s AAA/AA credit quality for the covered portion of foreign-currency obligations, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. S&P\'s current methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes; the recognition asymmetry persists across currency variants. The guarantee structure is the dominant determinant.',
+      cite: '[^107], [^108], [^110], [^121].'
+    }
   },
   project_finance: {
     lc: {
@@ -578,7 +615,11 @@ const solvencyData = {
       prose: 'Ring-fenced cash flows create a self-liquidating repayment mechanism that separates debt service from sovereign fiscal capacity, with reported recovery rates of 97–100% on productive-investment instruments. Basel risk weights drop from 150% pre-operational to 100% operational; securitized senior-secured exposures achieve a 72% RWA reduction versus 61% for unsecured project finance. The ring-fence is the dominant variable in both currency variants.',
       cite: '[^59], [^60], [^61], [^62].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'minimal', direction: '↓', evidence: 'strong',
+      prose: 'Ring-fenced cash flows separate debt service from sovereign fiscal capacity in foreign-currency variants, with reported recovery rates of 97–100% on productive-investment instruments. Basel risk weights drop from 150% pre-operational to 100% operational; securitized senior-secured exposures achieve a 72% RWA reduction versus 61% for unsecured project finance. Currency denomination operates as a secondary factor where revenue and obligation currencies diverge, but does not displace the ring-fence as primary determinant.',
+      cite: '[^59], [^60], [^61], [^62].'
+    }
   },
   unsecured: {
     lc: {
@@ -586,7 +627,11 @@ const solvencyData = {
       prose: 'No structural protection against sovereign debt dynamics; repayment depends on fiscal capacity at market rates. Local-currency denomination admits inflation erosion of the real debt burden and monetary-policy tools that sustain servicing capacity at elevated debt-to-GDP ratios. EMDE domestic debt rose from 30% to 46% of total between 2000 and 2020, reflecting deliberate development of this channel.',
       cite: '[^131], [^132], [^133], [^148].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency unsecured issuance carries full exposure to sovereign debt sustainability at market rates without structural mitigants. Currency denomination forecloses the inflation channel and monetary-policy tools available under local-currency variants. Across 18 sovereign restructuring episodes, external debt was close to 100% foreign-currency-denominated before and after default; quarterly foreign-exchange valuation effects on foreign-currency debt burdens have exceeded 20% of GDP in tail cases.',
+      cite: '[^131], [^132], [^133].'
+    }
   },
   budget_support: {
     lc: {
@@ -594,12 +639,16 @@ const solvencyData = {
       prose: 'Consumptive expenditure generates no self-amortizing revenue stream, and repayment depends entirely on fiscal capacity. Local-currency variants permit inflation to erode the real burden, but deliberate reliance on this channel risks signalling monetary-policy weakness and undermining macroeconomic credibility. Where budget support displaces other financing rather than expanding fiscal capacity, the underlying debt trajectory does not improve.',
       cite: '[^63], [^64], [^65], [^66].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency budget support bears full debt service at market rates without access to inflation relief. Consumptive expenditure generates no self-amortizing revenue stream, leaving repayment dependent on fiscal capacity that depreciation worsens by raising the local-currency cost of service. Where budget support displaces other financing rather than expanding fiscal capacity, the underlying debt trajectory does not improve.',
+      cite: '[^63], [^64], [^65], [^66].'
+    }
   }
 };
 
 // ============================================================
-// CLIMATE — local-currency side populated; foreign-currency placeholders
+// CLIMATE — both currency sides populated
 // ============================================================
 const climateData = {
   short_term: {
@@ -608,7 +657,11 @@ const climateData = {
       prose: 'Brief duration limits direct climate exposure, since obligations mature before physical or transition impacts affect repayment capacity in any meaningful way. Acute climate events qualify this insulation through pricing transmission — Jamaica\'s Treasury Bill rates rose 3.15% in the month a natural disaster occurred. Short-term debt is included within the V20 USD 62 billion climate vulnerability cost estimate over 2007–2016.',
       cite: '[^158], [^159].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↓', evidence: 'partial',
+      prose: 'Brief duration limits direct climate exposure in foreign-currency variants as in local-currency. Acute climate events transmit to short-term borrowing costs through pricing — Jamaica\'s Treasury Bill rates rose 3.15% in the month a natural disaster occurred. Foreign-currency rollover during a climate shock combines pricing pressure with reserve-access requirements, intensifying the channel marginally over the local-currency variant.',
+      cite: '[^158], [^159].'
+    }
   },
   long_concessional: {
     lc: {
@@ -616,7 +669,11 @@ const climateData = {
       prose: 'Two opposing forces: 20+ year maturities accumulate physical and transition risk exposure, while concessional structure and preferred-creditor relationships open access to climate-specific financing. Samoa\'s post-cyclone debt surge from 60% to 105% of GDP was managed through a 96% concessional share that kept debt service falling even as the stock rose; Vanuatu\'s debt-distress risk remains moderate due to concessional access; Grenada\'s 9.7% concessional share at Hurricane Ivan precipitated restructuring. Grants account for 71% of MDB climate finance for LDC-SIDS.',
       cite: '[^140], [^141], [^143], [^144].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↕', evidence: 'strong',
+      prose: 'Foreign-currency long-dated concessional loans accumulate physical and transition risk over 20+ year maturities, while concessional structure and preferred-creditor relationships open access to climate-specific financing. Samoa\'s post-cyclone debt surge from 60% to 105% of GDP was managed through a 96% concessional share that kept debt service falling even as the stock rose; Vanuatu\'s debt-distress risk remains moderate due to concessional access; Grenada\'s 9.7% concessional share at Hurricane Ivan precipitated restructuring. Grants account for 71% of MDB climate finance for LDC-SIDS.',
+      cite: '[^140], [^141], [^143], [^144].'
+    }
   },
   mdb_guaranteed: {
     lc: {
@@ -624,7 +681,11 @@ const climateData = {
       prose: 'Two functions interact with climate risk: risk-transfer that partially insulates sovereign balance sheets, and direct adaptation finance. Coverage gaps are documented — Caribbean Catastrophe Risk Insurance Facility paid USD 2.4 million against USD 482 million in damage for Dominica after Hurricane Erika; the World Bank pandemic catastrophe bond was discontinued after restrictive triggers delayed payouts; SIDS face Green Climate Fund accreditation barriers. Where structured for adaptation, MDBs delivered over USD 25 billion globally in 2022.',
       cite: '[^160], [^161], [^162], [^164], [^167].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'medium', direction: '↕', evidence: 'strong',
+      prose: 'Foreign-currency MDB-guaranteed structures combine partial sovereign-balance-sheet insulation through risk-transfer with direct adaptation finance. Coverage gaps are documented — Caribbean Catastrophe Risk Insurance Facility paid USD 2.4 million against USD 482 million in damage for Dominica after Hurricane Erika; the World Bank pandemic catastrophe bond was discontinued after restrictive triggers delayed payouts; SIDS face Green Climate Fund accreditation barriers. Where structured for adaptation, MDBs delivered over USD 25 billion globally in 2022.',
+      cite: '[^160], [^161], [^162], [^164], [^167].'
+    }
   },
   project_finance: {
     lc: {
@@ -632,7 +693,11 @@ const climateData = {
       prose: 'Sector-specific physical exposure varies by revenue source — energy, water, transport, and agriculture infrastructure are affected differently by climate shocks. The ring-fence that insulates from sovereign fiscal capacity does not insulate the revenue-generating asset from climate disruption. Emerging climate-proofing standards include MDB-anchored infrastructure ABS at 39% adaptation classification, port infrastructure loans at 70% adaptation, and third-party-verified desalination resilience. These features do not currently translate into rating uplift independent of sovereign creditworthiness.',
       cite: '[^174], [^175].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'medium', direction: '↑', evidence: 'partial',
+      prose: 'Foreign-currency project finance combines sector-specific physical exposure with imported-input depreciation risk: hard-currency-funded infrastructure projects requiring imported construction materials bear depreciation cost amplification on top of physical climate disruption. Emerging climate-proofing standards include MDB-anchored infrastructure ABS at 39% adaptation classification, port infrastructure loans at 70% adaptation, and third-party-verified desalination resilience, but these features do not currently translate into rating uplift independent of sovereign creditworthiness.',
+      cite: '[^174], [^175].'
+    }
   },
   unsecured: {
     lc: {
@@ -640,7 +705,11 @@ const climateData = {
       prose: 'Three reinforcing transmission channels: rating downgrades, direct yield premia on climate-vulnerable sovereigns, and fiscal deterioration over long horizons. A 1% increase in climate vulnerability raises long-term developing-country bond spreads by approximately 3%; climate vulnerability added 117 basis points to developing-country borrowing costs and USD 40 billion in cumulative interest payments over a decade. Under RCP 8.5, 80 sovereigns face climate-induced downgrades averaging 2.48 notches by 2100, with downgrades simulated within the standard 10-year ratings horizon. Disaster-clause bonds reduce welfare losses by 47%, but rating agencies do not assign uplift for inclusion.',
       cite: '[^176], [^177], [^178], [^181], [^182], [^190].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Three reinforcing channels operate on foreign-currency unsecured issuance: rating downgrades, direct yield premia on climate-vulnerable sovereigns, and fiscal deterioration over long horizons. A 1% increase in climate vulnerability raises long-term developing-country bond spreads by approximately 3%; climate vulnerability added 117 basis points to developing-country borrowing costs and USD 40 billion in cumulative interest payments over a decade. Under RCP 8.5, 80 sovereigns face climate-induced downgrades averaging 2.48 notches by 2100, with downgrades simulated within the standard 10-year ratings horizon. Foreign-currency denomination compounds this by transmitting climate-driven depreciation into domestic-currency debt service costs.',
+      cite: '[^176], [^177], [^178], [^181], [^182], [^190].'
+    }
   },
   budget_support: {
     lc: {
@@ -648,12 +717,16 @@ const climateData = {
       prose: 'Fiscal channel uninsulated. Natural disasters raise government expenditure by an average 15% and reduce revenue 10% over the five years following an event; severe events drive public debt up 11.3% of GDP on average against synthetic controls, with some events adding more than 20 percentage points. Disaster-related contingent liabilities — SOE bailouts, financial-sector support, reconstruction — compete directly with debt service capacity. High sovereign debt amplifies the rating impact of climate exposure post-Paris. Policy-based financing also operates as an adaptation delivery channel: USD 3,032 million in 2022 across LMICs.',
       cite: '[^164], [^165], [^166], [^167], [^169].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency budget support carries the fiscal climate exposure of the local-currency variant compounded by depreciation transmission: when climate shocks weaken the exchange rate, foreign-currency debt service costs rise precisely as fiscal capacity is absorbed by disaster response. Natural disasters raise government expenditure by an average 15% and reduce revenue 10% over the five years following an event; severe events drive public debt up 11.3% of GDP on average against synthetic controls. Disaster-related contingent liabilities compete directly with debt service capacity.',
+      cite: '[^164], [^165], [^166], [^167], [^169].'
+    }
   }
 };
 
 // ============================================================
-// POLITICAL / INSTITUTIONAL — local-currency side populated; foreign-currency placeholders
+// POLITICAL / INSTITUTIONAL — both currency sides populated
 // ============================================================
 const politicalData = {
   short_term: {
@@ -662,7 +735,11 @@ const politicalData = {
       prose: 'Rollover frequency exposes each refinancing episode to the prevailing political risk premium. A 10-point deterioration in political ratings raises sovereign bond yields by 106 basis points and cuts GDP growth by two percentage points, with effects amplified for high-debt and high-risk countries. Adverse political shocks raise debt costs more than favourable shocks reduce them; the political-risk–EMBI spread-volatility correlation reaches −0.70 across emerging markets. Short-horizon governments service debt only when net new borrowing exceeds current debt service, tying rollover to incumbent political calculus.',
       cite: '[^187], [^188], [^189], [^190], [^191].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Each foreign-currency rollover episode is repriced at the prevailing political risk premium and requires reserve access, compounding the political channel with foreign-exchange exposure. A 10-point deterioration in political ratings raises sovereign bond yields by 106 basis points and cuts GDP growth by two percentage points, with effects amplified for high-debt and high-risk countries. Adverse political shocks raise debt costs more than favourable shocks reduce them; the political-risk–EMBI spread-volatility correlation reaches −0.70 across emerging markets.',
+      cite: '[^187], [^188], [^189], [^190], [^191].'
+    }
   },
   long_concessional: {
     lc: {
@@ -670,7 +747,11 @@ const politicalData = {
       prose: 'Institutional capacity operates over the full loan horizon, and willingness to pay is structured by conditionality. Concessional creditor positioning splits along the MDB-versus-bilateral line: MDB concessional benefits from preferred-creditor protection, while bilateral concessional and Ex-Im lending typically absorb arrears first in selective default sequencing. Conditionality embeds an institutional-capacity requirement; sovereigns with weaker governance face higher conditionality hurdles precisely when concessional terms are most valuable.',
       cite: '[^232], [^235], [^236].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'medium', direction: '↕', evidence: 'strong',
+      prose: 'Foreign-currency concessional lending operates over the full loan horizon, with willingness to pay structured by conditionality. Creditor positioning splits along the MDB-versus-bilateral line: MDB concessional benefits from preferred-creditor protection, while bilateral concessional and Ex-Im lending typically absorb arrears first in selective default sequencing. Conditionality embeds an institutional-capacity requirement; sovereigns with weaker governance face higher conditionality hurdles precisely when concessional terms are most valuable.',
+      cite: '[^232], [^235], [^236].'
+    }
   },
   mdb_guaranteed: {
     lc: {
@@ -678,7 +759,11 @@ const politicalData = {
       prose: 'Preferred-creditor status operates through sovereign political incentives rather than legal enforcement, making protection institutionally contingent rather than contractual. Across 22 sovereign debt restructurings, MDB debt was never subject to principal reduction; the IDB experienced non-accrual in only 11% of commercial-default cases with zero ordinary-capital write-offs. Argentina\'s 2002 default illustrates the mechanism: the sovereign remained current on IDB payments and prepaid the IMF despite commercial default. Currency denomination does not alter the mechanism.',
       cite: '[^228], [^229], [^230], [^231], [^234].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↓', evidence: 'partial',
+      prose: 'Preferred-creditor status operates through sovereign political incentives rather than legal enforcement in foreign-currency variants as in local-currency. Across 22 sovereign debt restructurings, MDB debt was never subject to principal reduction; the IDB experienced non-accrual in only 11% of commercial-default cases with zero ordinary-capital write-offs. Argentina\'s 2002 default illustrates the mechanism: the sovereign remained current on IDB payments and prepaid the IMF despite commercial default. Currency denomination does not alter the mechanism.',
+      cite: '[^228], [^229], [^230], [^231], [^234].'
+    }
   },
   project_finance: {
     lc: {
@@ -686,7 +771,11 @@ const politicalData = {
       prose: 'Ring-fence structure provides partial but not complete insulation from sovereign political risk. The Pakistan Telecommunications Corporation sovereign-guaranteed Eurobond — a future-flows structured transaction — was exempted from Paris Club comparability-of-treatment requirements, establishing precedent for revenue-backed structured instruments in restructuring. The exemption operates case-by-case rather than under a rules-based framework, leaving the political protection contingent on each restructuring episode\'s institutional dynamics.',
       cite: '[^237], [^238].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'low', direction: '↓', evidence: 'partial',
+      prose: 'The ring-fence provides partial but not complete insulation from sovereign political risk in foreign-currency variants. The Pakistan Telecommunications Corporation sovereign-guaranteed Eurobond — a future-flows structured transaction in foreign currency — was exempted from Paris Club comparability-of-treatment requirements, establishing precedent for revenue-backed structured instruments in restructuring. The exemption operates case-by-case rather than under a rules-based framework, leaving the political protection contingent on each restructuring episode\'s institutional dynamics.',
+      cite: '[^237], [^238].'
+    }
   },
   unsecured: {
     lc: {
@@ -694,7 +783,11 @@ const politicalData = {
       prose: 'Direct exposure across both political dimensions, with no structural protection or creditor prioritization. Government effectiveness alone explains 48.5% of cross-country sovereign CDS spread variation; a one-standard-deviation improvement narrows spreads by 59 basis points. Local-currency bonds issued under domestic law open additional avoidance mechanisms — capital outflow taxes, convertibility suspension, local withholding — that are themselves embedded in local-currency credit spreads as a distinct political risk channel not present in the foreign-currency variant.',
       cite: '[^239], [^240], [^251].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'strong',
+      prose: 'Foreign-currency unsecured bonds issued under foreign law are subject to litigation in foreign courts with full holdout and enforcement mechanisms. Government effectiveness alone explains 48.5% of cross-country sovereign CDS spread variation; a one-standard-deviation improvement narrows spreads by 59 basis points. Litigation risk has been explicitly cited by Fitch and Moody\'s as a basis for rating actions across Mozambique, Ukraine, and Argentina; court-enforced creditor actions produced what is described as the most complete financial embargo enforced in sovereign debt litigation.',
+      cite: '[^239], [^240], [^242], [^243], [^244].'
+    }
   },
   budget_support: {
     lc: {
@@ -702,7 +795,11 @@ const politicalData = {
       prose: 'Conditionality arrangements bind institutional-capacity requirements into the instrument\'s structure. On the willingness-to-pay dimension, consumptive proceeds generate no self-amortizing revenue stream, leaving repayment dependent on sovereign political commitment to obligations that compete with domestic spending. Short-horizon governments service debt only when net new borrowing exceeds current debt service, making repayment sensitive to incumbent political calculus and electoral cycle dynamics.',
       cite: '[^252], [^253], [^254].'
     },
-    fc: { exposure: 'minimal', direction: '↓', evidence: 'theoretical', prose: 'Foreign-currency side pending population.', cite: '—' }
+    fc: {
+      exposure: 'high', direction: '↑', evidence: 'partial',
+      prose: 'Foreign-currency budget support binds conditionality-linked institutional-capacity requirements into the instrument\'s structure and adds reserve-access dependence to short-horizon government incentives. Consumptive proceeds generate no self-amortizing revenue stream; servicing depends on sovereign political commitment to obligations that compete with domestic spending and on continued external commercial market access.',
+      cite: '[^252], [^253], [^254].'
+    }
   }
 };
 
