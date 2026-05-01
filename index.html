@@ -1,7 +1,6 @@
 <!--Carlos Aguilar, version 2, updated tuesday april 28 2026 (20260413), contact: cia2117@columbia.edu, carlosiaglr@gmail.com -->
 <!--Sovereign risk dissagregation -  Columbia Center on Sustainable Investment -->
-<!-- Version 3, Updated friday may 1 2026 (20260501): foreign-currency side  -->
-
+<!--Update friday may 1 2026 (20260501): foreign-currency side populated for liquidity, solvency, climate, and political/institutional channels -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,7 +402,7 @@
 <script>
 // ============================================================
 // DATA — cells indexed by [instrument][currency]
-// Sourced from the T&C subchapter of the "Sources for matrix" doc.
+// Sourced from the "Sources for matrix" doc.
 // Exposure levels assessed against the methodology rubric.
 // ============================================================
 
@@ -492,7 +491,7 @@ const tncData = {
 };
 
 // ============================================================
-// LIQUIDITY — both currency sides populated
+// LIQUIDITY — both currency sides 
 // ============================================================
 const liquidityData = {
   short_term: {
@@ -570,7 +569,7 @@ const liquidityData = {
 };
 
 // ============================================================
-// SOLVENCY — both currency sides populated
+// SOLVENCY — both currency sides 
 // ============================================================
 const solvencyData = {
   short_term: {
@@ -648,7 +647,7 @@ const solvencyData = {
 };
 
 // ============================================================
-// CLIMATE — both currency sides populated
+// CLIMATE — both currency sides 
 // ============================================================
 const climateData = {
   short_term: {
@@ -726,7 +725,7 @@ const climateData = {
 };
 
 // ============================================================
-// POLITICAL / INSTITUTIONAL — both currency sides populated
+// POLITICAL / INSTITUTIONAL — both currency sides 
 // ============================================================
 const politicalData = {
   short_term: {
@@ -812,9 +811,9 @@ const channelData = {
 };
 
 const channelOrder = ['tnc', 'liquidity', 'solvency', 'climate', 'political'];
-// LC populated for all five; FC populated for T&C only
+// LC and FC complete, between '' marks which to add or remove
 const lcPopulated = new Set(['tnc', 'liquidity', 'solvency', 'climate', 'political']);
-const fcPopulated = new Set(['tnc']);
+const fcPopulated = new Set(['tnc', 'liquidity', 'solvency', 'climate', 'political']);
 
 // ============================================================
 // RENDER
