@@ -1,11 +1,12 @@
-<!--Carlos Aguilar, version 2, updated tuesday april 28 2026 (20260413), contact: cia2117@columbia.edu, carlosiaglr@gmail.com -->
-<!--Sovereign risk dissagregation -  Columbia Center on Sustainable Investment -->
-<!--Update friday may 1 2026 (20260501): foreign-currency side populated for liquidity, solvency, climate, and political/institutional channels -->
+<!--Carlos Aguilar, version 4, updated monday may 11 2026 (20260511), contact: cia2117@columbia.edu, carlosiaglr@gmail.com -->
+<!--Sovereign risk disaggregation -  Columbia Center on Sustainable Investment -->
+<!--Update friday may 1 2026 (20260501): foreign-currency side -->
+<!--Update friday may 8 2026 (20260511): v4 — fills the four FN, replaces placeholders, and adds cross-channel interactions footer note -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sovereign Risk Disaggregation Matrix — v1</title>
+<title>Sovereign Risk Disaggregation Matrix — v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -285,6 +286,59 @@
   .detail-meta dd { font-size: 12.5px; color: #2A2A2A; }
   .detail-meta dd.cite { font-style: italic; color: var(--grey-text); font-size: 11.5px; line-height: 1.4; }
 
+  /* Cross-channel interactions */
+  .cross-channel {
+    margin-top: 36px;
+    padding: 24px 28px;
+    background: var(--grey-bg);
+    border-left: 3px solid var(--navy);
+  }
+  .cross-channel h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .cross-channel p {
+    font-size: 13.5px;
+    color: #2A2A2A;
+    line-height: 1.55;
+    margin-bottom: 12px;
+    max-width: 880px;
+  }
+  .cross-channel ul {
+    list-style: none;
+    margin: 8px 0 12px;
+    padding: 0;
+  }
+  .cross-channel li {
+    font-size: 13.5px;
+    color: #2A2A2A;
+    line-height: 1.55;
+    padding: 8px 0 8px 18px;
+    border-top: 1px solid var(--grey-border);
+    position: relative;
+    max-width: 880px;
+  }
+  .cross-channel li:last-child { border-bottom: 1px solid var(--grey-border); }
+  .cross-channel li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 16px;
+    width: 8px; height: 1px;
+    background: var(--navy);
+  }
+  .cross-channel li strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .cross-channel-coda {
+    font-style: italic;
+    color: var(--grey-text);
+    margin-top: 14px !important;
+  }
+
   /* Legend */
   .legend {
     margin-top: 32px;
@@ -347,16 +401,16 @@
 <header>
   <div class="eyebrow">
     <span class="tag">Columbia Center on Sustainable Investment</span>
-    <span class="tag">Working Draft [PLACEHOLDER]</span>
+    <span class="tag">Working draft · May 2026</span>
   </div>
   <h1>Sovereign credit risk, disaggregated by instrument and channel</h1>
-  <p class="subtitle">An interactive map of how five risk channels transmit into six sovereign debt instruments, in local- and foreign-currency variants. Click any tile for the supporting evidence and citation. [Placeholder]</p>
+  <p class="subtitle">An interactive map of how five risk channels — currency &amp; transfer, liquidity, solvency, climate, and political/institutional — transmit into six sovereign debt instruments, in local- and foreign-currency variants. Click any tile for the prose finding, exposure level, evidence tier, and source citations.</p>
 </header>
 
 <div class="controls">
   <div class="channel-label">
-    Risk-instrument matrix — [Placeholder]
-    <span class="meta">[Placeholder]</span>
+    Risk-instrument matrix ·
+    <span class="meta">Toggle currency · click a tile to expand · </span>
   </div>
   <div class="toggle" role="tablist" aria-label="Currency denomination">
     <button id="btn-lc" class="active" role="tab" aria-selected="true">Local currency</button>
@@ -372,6 +426,17 @@
   <div class="col-header">Climate</div>
   <div class="col-header">Political / Institutional</div>
 </div>
+
+<section class="cross-channel">
+  <h3>Cross-channel interactions</h3>
+  <p>Channels do not operate in isolation. Sovereign distress propagates through several simultaneously, and the interactions compound rather than substitute; most acutely on the instruments whose structural protections are thinnest.</p>
+  <ul>
+    <li><strong>Liquidity → solvency.</strong> Rollover pressure compresses fiscal space; sovereigns sacrifice productive spending first, weakening the fiscal capacity that underpins long-term debt sustainability and converting temporary funding shortfalls into structural solvency deterioration. The instruments most exposed to both channels without insulation — unsecured FC issuance and FC budget support — absorb the compounded effect most acutely.</li>
+    <li><strong>Climate → currency.</strong> Physical disasters produce exchange-rate declines through capital outflows; climate disruption to export sectors affects the balance of payments through reduced FX earnings. Climate-stressed sovereigns then deploy transfer and convertibility restrictions as a reactive response — capital controls, convertibility suspensions, dividend and debt-service repatriation limits — each carrying its own credit consequences.</li>
+    <li><strong>Political → everything.</strong> Institutional capacity shapes monetary credibility, fiscal consolidation, the administration of C&amp;T controls, the willingness to honour debt service, and the adaptive capacity that determines climate resilience. Adverse political shocks raise debt costs asymmetrically, and that asymmetry compounds whatever liquidity, solvency, currency or climate pressure is in parallel. Preferred-creditor status and ring-fenced revenue structures rest on sovereign incentive structures that political deterioration can itself erode.</li>
+  </ul>
+  <p class="cross-channel-coda">Read this way, the matrix is not a ledger of independent exposures but a map of interaction points through which structural protections interrupt or amplify cross-channel transmission. A short-term FC unsecured instrument issued by a climate-exposed sovereign with weak institutions does not face five independent risks but a single compounding exposure.</p>
+</section>
 
 <div class="legend">
   <div>
@@ -396,7 +461,7 @@
 </div>
 
 <footer>
-  Source: CIAR Working draft, "Sources for matrix". Exposure-level assessments derived from the channel narrative against the methodology rubric (High / Medium / Low / Minimal). Citations as numbered in the source document.
+  Exposure-level assessments derived from the channel narratives against the methodology rubric (High / Medium / Low / Minimal); evidence tier (Strong / Partial / Theoretical) reflects specificity to the instrument–channel pair and convergence across independent sources. Footnote numbers in cell citations correspond to the numbered references in the source document. v4 — May 2026.
 </footer>
 
 <script>
@@ -418,9 +483,9 @@ const instruments = [
 const tncData = {
   short_term: {
     lc: {
-      exposure: 'minimal', direction: '↓', evidence: 'strong',
-      prose: 'No foreign-exchange conversion required. Sovereign monetary control eliminates convertibility and transfer risk; the government retains legal and operational authority over the obligation currency.',
-      cite: '[footnote pending]'
+      exposure: 'low', direction: '↓', evidence: 'strong',
+      prose: 'No foreign-exchange conversion required: sovereign monetary control eliminates the cross-border transfer step and the conversion premium. Risk is reduced but not eliminated — Russia\'s 1998 selective default targeted three-month local-currency treasury bills before broader restructuring, and Ghana\'s 2022 Domestic Debt Exchange restructured short-term local-currency instruments (including Cocobills) ahead of the standstill on external commercial and bilateral debt, establishing that domestic obligations can be selectively defaulted on before foreign-currency ones.',
+      cite: '[^11], [^12].'
     },
     fc: {
       exposure: 'high', direction: '↑', evidence: 'strong',
@@ -443,8 +508,8 @@ const tncData = {
   mdb_guaranteed: {
     lc: {
       exposure: 'minimal', direction: '↓', evidence: 'strong',
-      prose: 'LC denomination eliminates convertibility, transfer and devaluation risks at the instrument level. MDB Treasury desks can provide currency-management support where needed.',
-      cite: '[footnote pending]'
+      prose: 'LC denomination removes the foreign-exchange conversion step at the instrument level, eliminating convertibility, transfer and depreciation exposure. MDB credit quality also operates as a spread anchor in local-currency markets — EIB Turkish-lira bonds remained below Turkish sovereign spreads through the peak of the European debt crisis, and KfW Brazilian-real bonds priced inside Brazilian local-currency sovereign yields — so MDB involvement here works on pricing rather than risk retention. IDA\'s Local Currency Facility provides swap-based access where domestic markets are thin.',
+      cite: '[^26], [^27], [^28].'
     },
     fc: {
       exposure: 'medium', direction: '↓', evidence: 'strong',
@@ -455,8 +520,8 @@ const tncData = {
   project_finance: {
     lc: {
       exposure: 'minimal', direction: '↓', evidence: 'strong',
-      prose: 'LC variants eliminate the channel entirely: no currency mismatch between revenues and obligations.',
-      cite: '[footnote pending]'
+      prose: 'LC variants eliminate the channel at the instrument level: no currency mismatch between revenues and obligations, no conversion required, and ring-fenced revenue dedication means residual exposure reduces to domestic policy actions (capital controls, withholding) rather than market dynamics. The Brazilian hydroelectric foreign-exchange liquidity facility — calibrating payouts to historical real exchange-rate volatility and the project\'s debt service coverage ratio — illustrates the structural mitigants available even where currency mismatch is reintroduced.',
+      cite: '[^49], [^50].'
     },
     fc: {
       exposure: 'low', direction: '↕', evidence: 'strong',
@@ -467,20 +532,20 @@ const tncData = {
   unsecured: {
     lc: {
       exposure: 'low', direction: '↕', evidence: 'strong',
-      prose: 'LC denomination eliminates risk for the issuer but relocates rather than neutralizes the channel. Foreign holders of LC sovereign bonds face convertibility and regulatory-change risk not present in FC debt — the sovereign retains the ability to suspend convertibility or impose capital controls without breaching bond covenants. Currency risk accounts for approximately 75% of the LC yield premium EME sovereigns pay above the risk-free rate, and depreciation amplifies foreign investor selloffs of LC bonds.',
-      cite: '[^56], [^57].'
+      prose: 'LC denomination eliminates risk for the issuer but relocates rather than neutralizes the channel. Foreign holders of LC sovereign bonds face convertibility and regulatory-change risk not present in FC debt — the sovereign retains the ability to suspend convertibility or impose capital controls without breaching bond covenants. Currency risk accounts for approximately 75% of the LC yield premium EME sovereigns pay above the risk-free rate, and depreciation amplifies foreign investor selloffs of LC bonds. Offshore local-currency eurobonds (LC-denominated but governed by international law, settled in USD) are structurally exempt from capital controls and convertibility risk; stripping out that premium reveals Brazilian onshore LC spreads above the offshore equivalent, isolating the convertibility premium embedded in domestic-jurisdiction LC instruments.',
+      cite: '[^42], [^43], [^56], [^57].'
     },
     fc: {
       exposure: 'high', direction: '↑', evidence: 'strong',
-      prose: 'Ceiling of exposure: no escrow, no ring-fence, no concessional offset, full dependence on sovereign fiscal capacity and reserve adequacy to service obligations whose cost rises precisely as those buffers erode. The introduction of outflow controls is associated with sovereign rating downgrades twice as severe as for non-control countries in the first crisis year.',
-      cite: '[^58], [^60], [^61].'
+      prose: 'Ceiling of exposure: no escrow, no ring-fence, no concessional offset, full dependence on sovereign fiscal capacity and reserve adequacy to service obligations whose cost rises precisely as those buffers erode. A 1% real exchange-rate depreciation raises sovereign default probability by 0.23 rating notches; across 18 sovereign restructuring episodes, external debt was close to 100% foreign-currency-denominated before and after default. The introduction of outflow controls is associated with sovereign rating downgrades twice as severe as for non-control countries in the first crisis year.',
+      cite: '[^37], [^38], [^58], [^60], [^61].'
     }
   },
   budget_support: {
     lc: {
-      exposure: 'minimal', direction: '↓', evidence: 'partial',
-      prose: 'No FX conversion or transfer risk; convertibility exposure eliminated entirely. Monetary-policy flexibility remains available to support servicing.',
-      cite: '[footnote pending]'
+      exposure: 'low', direction: '↓', evidence: 'partial',
+      prose: 'No FX conversion or cross-border transfer at the instrument level; market-driven convertibility exposure is eliminated and monetary-policy flexibility remains available to support servicing. The channel relocates rather than disappears: domestic-jurisdiction policy tools — capital controls, convertibility suspension, withholding — remain available without breaching bond covenants, and their deployment carries rating consequences. Brazil\'s IOF tax on foreign fixed-income investment (2–6%, October 2009, abandoned June 2013 under capital outflows) illustrates that capital-control interventions narrow the sovereign\'s future access to local-currency demand even as they are deployed.',
+      cite: '[^48], [^62].'
     },
     fc: {
       exposure: 'high', direction: '↑', evidence: 'partial',
@@ -526,14 +591,14 @@ const liquidityData = {
     },
     fc: {
       exposure: 'minimal', direction: '↓', evidence: 'strong',
-      prose: 'Foreign-currency variants benefit from a 0.77% average annual default rate on MDB lending across 167 countries over 1984–2024, with concessional terms buffering rate volatility — average 2024 official rates of 3.8% versus 5.89% for private creditors. Partial guarantees provide credit enhancement that supports rollover capacity, and preferred-creditor status remains effective in foreign currency conditional on the guarantee structure meeting credit-enhancement recognition thresholds.',
-      cite: '[^72], [^73], [^74].'
+      prose: 'Foreign-currency variants benefit from a 0.77% average annual default rate on MDB lending across 167 countries over 1984–2024, with concessional terms buffering rate volatility — average 2024 official rates of 3.8% versus 5.89% for private creditors. The cost gap is concrete: Kenya\'s 2024 Eurobond replaced a maturing instrument carrying a 6.875% coupon with a new issuance at 9.75%, illustrating the rollover repricing that MDB-guaranteed instruments avoid. Partial guarantees provide credit enhancement that supports rollover capacity, and preferred-creditor status remains effective in foreign currency conditional on the guarantee structure meeting credit-enhancement recognition thresholds.',
+      cite: '[^69], [^70], [^72], [^73], [^74].'
     }
   },
   project_finance: {
     lc: {
       exposure: 'minimal', direction: '↓', evidence: 'strong',
-      prose: 'Ring-fenced revenues and escrow mechanisms protect cash flows from sovereign refinancing pressures, and debt service reserve accounts provide dedicated liquidity independent of sovereign market access. Local-currency variants avoid the convertibility and depreciation overlay that raises liquidity exposure when foreign-currency debt is serviced from local-currency revenues.',
+      prose: 'Ring-fenced revenues and escrow mechanisms protect cash flows from sovereign refinancing pressures, and debt service reserve accounts provide dedicated liquidity independent of sovereign market access. Local-currency variants avoid the convertibility and depreciation overlay that raises liquidity exposure when foreign-currency debt is serviced from local-currency revenues. Concessional financing and multilateral institutions can also facilitate refinancing of more expensive existing loans, extending the structural benefit beyond the instrument itself.',
       cite: '[^77], [^78], [^80], [^81].'
     },
     fc: {
@@ -599,13 +664,13 @@ const solvencyData = {
   mdb_guaranteed: {
     lc: {
       exposure: 'low', direction: '↓', evidence: 'strong',
-      prose: 'Where guarantees are strong and callable, markets apply a look-through to the guarantor\'s AAA/AA credit quality for the covered portion, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. Recognition is uneven: S&P\'s current methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes. The guarantee structure is the dominant determinant in both currency variants.',
-      cite: '[^107], [^108], [^110], [^121].'
+      prose: 'Where guarantees are strong and callable, markets apply a look-through to the guarantor\'s AAA/AA credit quality for the covered portion, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. Recognition is uneven: S&P\'s methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes. Where credit enhancement is recognized, uplift can be substantial — Turkey\'s 2017 Elazig hospital bond, combining EBRD liquidity support with a MIGA political-risk guarantee, achieved a Moody\'s rating two notches above the Turkish sovereign. The guarantee structure is the dominant determinant in both currency variants.',
+      cite: '[^107], [^108], [^110], [^115], [^121].'
     },
     fc: {
       exposure: 'low', direction: '↓', evidence: 'strong',
-      prose: 'Markets apply look-through to the guarantor\'s AAA/AA credit quality for the covered portion of foreign-currency obligations, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. S&P\'s current methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes; the recognition asymmetry persists across currency variants. The guarantee structure is the dominant determinant.',
-      cite: '[^107], [^108], [^110], [^121].'
+      prose: 'Markets apply look-through to the guarantor\'s AAA/AA credit quality for the covered portion of foreign-currency obligations, with near-zero long-term default incidence. Guarantees represent 5% of MDB operations yet account for 45% of private resource mobilization. The December 2024 Côte d\'Ivoire policy-based guarantee liability management operation reproduced the pattern documented in the 2016 World Bank IEG review: an equivalent blended IBRD-market loan would have produced larger financial gains than the PBG-backed structure. S&P\'s methodology, republished January 2026, continues to treat partially guaranteed debt as equivalent to unguaranteed debt for rating purposes; the recognition asymmetry persists across currency variants.',
+      cite: '[^107], [^108], [^110], [^114], [^121].'
     }
   },
   project_finance: {
@@ -784,20 +849,20 @@ const politicalData = {
     },
     fc: {
       exposure: 'high', direction: '↑', evidence: 'strong',
-      prose: 'Foreign-currency unsecured bonds issued under foreign law are subject to litigation in foreign courts with full holdout and enforcement mechanisms. Government effectiveness alone explains 48.5% of cross-country sovereign CDS spread variation; a one-standard-deviation improvement narrows spreads by 59 basis points. Litigation risk has been explicitly cited by Fitch and Moody\'s as a basis for rating actions across Mozambique, Ukraine, and Argentina; court-enforced creditor actions produced what is described as the most complete financial embargo enforced in sovereign debt litigation.',
-      cite: '[^239], [^240], [^242], [^243], [^244].'
+      prose: 'Foreign-currency unsecured bonds issued under foreign law are subject to litigation in foreign courts with full holdout and enforcement mechanisms. Government effectiveness alone explains 48.5% of cross-country sovereign CDS spread variation; a one-standard-deviation improvement narrows spreads by 59 basis points. Litigation risk has been explicitly cited by Fitch and Moody\'s in rating actions across Mozambique, Ukraine, and Argentina. Venezuela illustrates the willingness-to-pay extreme — the government continued servicing bondholders in full through a humanitarian crisis while defaulting on most other creditors, with legal risk identified as the dominant explanation. Argentina shows the inverse: court-enforced pari passu rulings blocked payments to exchange bondholders unless holdouts received ratable payment, producing what is described as the most complete financial embargo enforced in sovereign debt litigation.',
+      cite: '[^231], [^238], [^239], [^240], [^242].'
     }
   },
   budget_support: {
     lc: {
       exposure: 'high', direction: '↑', evidence: 'partial',
-      prose: 'Conditionality arrangements bind institutional-capacity requirements into the instrument\'s structure. On the willingness-to-pay dimension, consumptive proceeds generate no self-amortizing revenue stream, leaving repayment dependent on sovereign political commitment to obligations that compete with domestic spending. Short-horizon governments service debt only when net new borrowing exceeds current debt service, making repayment sensitive to incumbent political calculus and electoral cycle dynamics.',
-      cite: '[^252], [^253], [^254].'
+      prose: 'Conditionality arrangements bind institutional-capacity requirements into the instrument\'s structure — prior actions and structural benchmarks tied to MDB or IMF disbursements (fiscal consolidation targets, PFM reforms, tax administration, subsidy rationalization) operate as a partial structural constraint on fiscal behaviour. On the willingness-to-pay dimension, consumptive proceeds generate no self-amortizing revenue stream, leaving repayment dependent on sovereign political commitment to obligations that compete with domestic spending. Short-horizon governments service debt only when net new borrowing exceeds current debt service, making repayment sensitive to incumbent political calculus and electoral-cycle dynamics.',
+      cite: '[^215], [^216], [^218].'
     },
     fc: {
       exposure: 'high', direction: '↑', evidence: 'partial',
-      prose: 'Foreign-currency budget support binds conditionality-linked institutional-capacity requirements into the instrument\'s structure and adds reserve-access dependence to short-horizon government incentives. Consumptive proceeds generate no self-amortizing revenue stream; servicing depends on sovereign political commitment to obligations that compete with domestic spending and on continued external commercial market access.',
-      cite: '[^252], [^253], [^254].'
+      prose: 'Foreign-currency budget support binds conditionality-linked institutional-capacity requirements into the instrument\'s structure and adds reserve-access dependence to short-horizon government incentives. Consumptive proceeds generate no self-amortizing revenue stream; servicing depends on sovereign political commitment to obligations that compete with domestic spending and on continued external commercial market access. Where political deterioration coincides with refinancing windows, repricing absorbs the full premium documented for unsecured FC issuance.',
+      cite: '[^215], [^216], [^218].'
     }
   }
 };
